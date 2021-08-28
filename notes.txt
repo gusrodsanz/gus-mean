@@ -26,13 +26,16 @@ git push -u origin master
 
 
 ADD POST-CREATE
-ng g c post/post-create --skipTests=true
+ng g c posts/post-create --skipTests=true
 
 git add .
 
 git commit -m "add post-create"
 
 
+
+ADD POST-LIST
+ng g c posts/post-list --skipTests=true
 
 
 ADD HEADER
