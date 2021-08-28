@@ -19,4 +19,35 @@ ANGULAR CLI  needed
 npm install -g @angular/cli
 
 
+cd gus-mean
+git init
+git remote add origin https://github.com/gusrodsanz/gus-mean.git
+git push -u origin master
+
+
+ADD POST-CREATE
+ng g c post/post-create --skipTests=true
+
+git add .
+
+git commit -m "add post-create"
+
+
+
+
+ADD HEADER
+ng g c header --skipTests=true
+
+
+ADD MATERIAL
+1 > npm i  --save @angular/material
+o
+if lastest CLI version   then :
+ng add @angular/material
+
+material is already registered / imported  ok.
+
+
+
+
 
