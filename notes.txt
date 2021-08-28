@@ -1,0 +1,22 @@
+
+
+https://www.udemy.com/course/angular-2-and-nodejs-the-practical-guide/learn/lecture/10416174#overview
+
+
+
+
+ng new  mean-course --no-strict
+
+ng new gus-mean --no-strict
+
+
+
+
+NODE needed
+
+ANGULAR CLI  needed
+
+npm install -g @angular/cli
+
+
+
