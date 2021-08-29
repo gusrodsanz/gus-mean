@@ -87,4 +87,14 @@ ADD BODYPARSER
 npm i --save body-parser
 
 
+CREATE MONGODB  cluster server  sandbox
 
+user: gus
+pwd: c.......
+
+
+
+ADD MONGO
+npm i --save mongodb
+
+USE MONGOOSE
