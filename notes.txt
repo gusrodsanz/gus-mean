@@ -52,5 +52,34 @@ material is already registered / imported  ok.
 
 
 
+ADD NODE JS
+1 >  folder "backend" in root
+2 >  server.js in root
+
+npm install --save express
+
+create file
+backend/app.js
+
+
+
+run
+npm i --save-dev nodemon
+
+in package.json  add :
+<script> >>
+    "start:server": "nodemon"
+
+    (no semicolon at the end !!!)
+
+
+in server.js add
+const debug = require("debug")("node-angular");
+//debug is a package present in node.
+
+run
+>>
+npm run start:server
+
 
 
