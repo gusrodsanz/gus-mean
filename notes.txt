@@ -98,3 +98,11 @@ ADD MONGO
 npm i --save mongodb
 
 USE MONGOOSE
+
+from mongodb.com
+connect  using shell
+run
+brew install mongosh
+mongosh "mongodb+srv://cluster0.itilw.mongodb.net/myFirstDatabase" --username gus
+
+
