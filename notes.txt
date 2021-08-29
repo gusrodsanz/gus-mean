@@ -68,7 +68,7 @@ npm i --save-dev nodemon
 
 in package.json  add :
 <script> >>
-    "start:server": "nodemon"
+    "start:server": "nodemon server.js"
 
     (no semicolon at the end !!!)
 
@@ -80,6 +80,11 @@ const debug = require("debug")("node-angular");
 run
 >>
 npm run start:server
+
+
+
+ADD BODYPARSER
+npm i --save body-parser
 
 
 
