@@ -6,23 +6,30 @@ const Post = require("./models/post");
 
 const app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(bodyParser.json() );
-app.use(bodyParser.urlencoded({extended: false}) );
-
-mongoose.connect(
-  "mongodb+srv://gus:changeme@cluster0.itilw.mongodb.net/gus-node-angular?retryWrites=true&w=majority")
-  .then(()=> {
+mongoose
+  .connect(
+    "mongodb+srv://gus:changeme@cluster0.itilw.mongodb.net/gus-node-angular?retryWrites=true&w=majority"
+  )
+  .then(() => {
     console.log("Connected to mongodb");
   })
-  .catch((error)=> {
+  .catch((error) => {
     console.log("error connecting to mongodb", error);
   });
 
-app.use( (req, res, next) => {
+app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, DELETE, OPTIONS"
+  );
 
   next();
 });
@@ -30,14 +37,13 @@ app.use( (req, res, next) => {
 app.post("/api/posts", (req, res, next) => {
   const post = new Post({
     title: req.body.title,
-    content: req.body.content
+    content: req.body.content,
   });
   post.save();
-  res.status(201).json({message: 'Post added successfully'});
+  res.status(201).json({ message: "Post added successfully" });
 });
 
 app.get("/api/posts", (req, res, next) => {
-
   // posts = [
   //   {
   //     id: "1",
@@ -57,16 +63,26 @@ app.get("/api/posts", (req, res, next) => {
   // ];
 
   Post.find()
-    .then(documents => {
+    .then((documents) => {
       res.status(200).json({
         message: "message from node",
         posts: documents,
-      })
+      });
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
     });
-  ;
+});
+
+app.delete("/api/posts/:id", (req, res, next) => {
+  Post.deleteOne({_id: req.params.id})
+    .then((result) => {
+      console.log(result);
+      res.status(201).json({ message: "Post deleted successfully" });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 module.exports = app;

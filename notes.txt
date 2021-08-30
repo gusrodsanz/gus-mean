@@ -95,7 +95,7 @@ pwd: c.......
 
 
 ADD MONGO
-npm i --save mongodb
+npm i --save mongoose
 
 USE MONGOOSE
 
@@ -104,5 +104,7 @@ connect  using shell
 run
 brew install mongosh
 mongosh "mongodb+srv://cluster0.itilw.mongodb.net/myFirstDatabase" --username gus
+
+
 
 
