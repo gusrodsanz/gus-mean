@@ -35,10 +35,25 @@ app.use((req, res, next) => {
 });
 
 
+app.get("/api/posts/:id", (req, res, next) => {
+  console.log(" app.js post/id ");
+  Post.findById(req.params.id).then( post => {
+    if(post){
+      res.status(200).json(post);
+    }else{
+      console.log(" app.js 400 ");
+
+      res.status(400).json({
+        message: "Post not found"
+      });
+    }
+  });
+});
+
 
 app.post("/api/posts/:id", (req, res, next) => {
   const post = new Post({
-    _id: req.body.id,
+    id: req.body.id,
     title: req.body.title,
     content: req.body.content,
   });

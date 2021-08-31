@@ -13,7 +13,15 @@ export class PostsService {
   constructor(private http: HttpClient) {}
 
   getPost(id: string) {
-    return {...this.posts.find( p => p.id === id )};
+    // return {...this.posts.find( p => p.id === id )};
+
+    return this.http.get<{
+      _id: string,
+      title: string,
+      content: string
+    }>(
+      'http://localhost:3000/api/posts/' + id
+    );
   }
 
   getPosts() {
@@ -52,7 +60,7 @@ export class PostsService {
       .post<{
         message: 'message from node';
         postId: string;
-      }>('http://localhost:3000/api/posts', post)
+      }>('http://localhost:3000/api/posts/', post)
       .subscribe((responseData) => {
         const postId = responseData.postId;
         post.id = postId;
@@ -65,12 +73,12 @@ export class PostsService {
   }
 
   updatePost(id: string, title: string, content: string) {
-    const post: Post = {id: id, title: title, content: content};
+    const post: Post = { id: id, title: title, content: content };
     this.http
       .post<{
         message: 'message from node';
         postId: string;
-      }>('http://localhost:3000/api/put/'+ post.id, post)
+      }>('http://localhost:3000/api/put/' + post.id, post)
       .subscribe((responseData) => {
         //const postId = responseData.postId;
         // post.id = postId;
@@ -78,13 +86,11 @@ export class PostsService {
         console.log(responseData.message);
 
         const updatedPosts = [...this.posts];
-        const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id );
+        const oldPostIndex = updatedPosts.findIndex((p) => p.id === post.id);
         updatedPosts[oldPostIndex] = post;
         this.posts = updatedPosts;
         this.postsUpdated.next([...this.posts]);
-
       });
-
   }
 
   deletePost(postId: string) {
