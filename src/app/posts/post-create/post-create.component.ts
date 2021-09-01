@@ -37,8 +37,8 @@ export class PostCreateComponent implements OnInit {
 
       image: new FormControl(null, {
         validators: [Validators.required],
-        asyncValidators: [mimeType],
-      }),
+        asyncValidators: [mimeType]
+      })
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('postId')) {
