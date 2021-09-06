@@ -1,3 +1,10 @@
+mat-form-field {
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
+}
 a {
   text-decoration: none;
   color: white;
@@ -10,3 +17,6 @@ ul {
 .spacer{
   flex: 1 1 auto;
 }
+ul {
+  display: flex;
+  }
