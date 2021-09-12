@@ -110,4 +110,23 @@ mongosh "mongodb+srv://cluster0.itilw.mongodb.net/myFirstDatabase" --username gu
 npm i --save multer
 
 
+98
+npm i --save mongoose-unique-validator
+
+error dependency
+so
+npm i --save mongoose@5.2.1
+npm i --save mongoose-unique-validator
+
+
+
+99  for passwords
+
+npm i --save bcrypt
+
+102
+npm install --save jsonwebtoken
+
+
+
 
