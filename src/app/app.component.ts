@@ -14,7 +14,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.authServ.autoAuthDate();
+    this.authServ.autoAuthUser();
   }
 
   // storedPosts: Post[] = [];

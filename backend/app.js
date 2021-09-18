@@ -10,8 +10,8 @@ const app = express();
 
 mongoose
     .connect(
-      // "mongodb+srv://gus:changeme@cluster0.itilw.mongodb.net/gus-node-angular?retryWrites=true&w=majority"
-      "mongodb+srv://gus:changeme@cluster0.itilw.mongodb.net/gus-node-angular"
+    //  "mongodb+srv://gus:changeme@cluster0.itilw.mongodb.net/gus-node-angular?retryWrites=true&w=majority"
+     "mongodb+srv://gus:changeme@cluster0.itilw.mongodb.net/gus-node-angular"
     )
     .then(() => {
       console.log("Connected to mongodb");
