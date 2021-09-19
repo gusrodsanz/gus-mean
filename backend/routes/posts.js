@@ -9,7 +9,7 @@ const router = express.Router();
 const MIME_TYPE_MAP = {
   "image/png": "png",
   "image/jpeg": "jpg",
-  "image/jpg": "jpg"
+  "image/jpg": "jpg",
 };
 
 const storage = multer.diskStorage({
@@ -22,13 +22,10 @@ const storage = multer.diskStorage({
     cb(error, "backend/images");
   },
   filename: (req, file, cb) => {
-    const name = file.originalname
-      .toLowerCase()
-      .split(" ")
-      .join("-");
+    const name = file.originalname.toLowerCase().split(" ").join("-");
     const ext = MIME_TYPE_MAP[file.mimetype];
     cb(null, name + "-" + Date.now() + "." + ext);
-  }
+  },
 });
 
 router.post(
@@ -41,19 +38,24 @@ router.post(
       title: req.body.title,
       content: req.body.content,
       imagePath: url + "/images/" + req.file.filename,
-      creator: req.userData.userId
+      creator: req.userData.userId,
     });
     // console.log(req.userData);
     // return res.status(200).json({});
-    post.save().then(createdPost => {
-      res.status(201).json({
-        message: "Post added successfully",
-        post: {
-          ...createdPost,
-          id: createdPost._id
-        }
+    post
+      .save()
+      .then((createdPost) => {
+        res.status(201).json({
+          message: "Post added successfully",
+          post: {
+            ...createdPost,
+            id: createdPost._id,
+          },
+        });
+      })
+      .catch((error) => {
+        res.status(500).json({ message: "Creating a post failed !" });
       });
-    });
   }
 );
 
@@ -72,19 +74,24 @@ router.put(
       title: req.body.title,
       content: req.body.content,
       imagePath: imagePath,
-      creator: req.userData.userId
+      creator: req.userData.userId,
     });
     console.log(post);
 
     // FILTER BY DB id and userId !!
     // mongo check in the request if nModified = 0 OR 1  .    IF 0 then no update done
-    Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post).then(result => {
+    Post.updateOne(
+      { _id: req.params.id, creator: req.userData.userId },
+      post
+    ).then((result) => {
       // console.log(result);
-      if( result.nModified > 0 ){
+      if (result.nModified > 0) {
         res.status(200).json({ message: "Update successful!" });
-      }else{
+      } else {
         res.status(401).json({ message: "Update not Authorized !" });
       }
+    }).catch((error) => {
+      res.status(500).json({ message: "Updating a post failed !" });
     });
   }
 );
@@ -98,38 +105,49 @@ router.get("", (req, res, next) => {
     postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
   }
   postQuery
-    .then(documents => {
+    .then((documents) => {
       fetchedPosts = documents;
       return Post.count();
     })
-    .then(count => {
+    .then((count) => {
       res.status(200).json({
         message: "Posts fetched successfully!",
         posts: fetchedPosts,
-        maxPosts: count
+        maxPosts: count,
       });
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Fetching posts failed !" });
     });
 });
 
 router.get("/:id", (req, res, next) => {
-  Post.findById(req.params.id).then(post => {
+  Post.findById(req.params.id).then((post) => {
     if (post) {
       res.status(200).json(post);
     } else {
       res.status(404).json({ message: "Post not found!" });
     }
+  })
+  .catch((error) => {
+    res.status(500).json({ message: "Fetching a post failed !" });
   });
 });
 
 //MONGO FILTER BY n
 router.delete("/:id", checkAuth, (req, res, next) => {
-  Post.deleteOne({ _id: req.params.id , creator: req.userData.userId }).then(result => {
-    console.log(result);
-    if( result.n > 0 ){
-      res.status(200).json({ message: " Post deleted successful!" });
-    }else{
-      res.status(401).json({ message: "Post delete not Authorized !" });
+  Post.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(
+    (result) => {
+      console.log(result);
+      if (result.n > 0) {
+        res.status(200).json({ message: " Post deleted successful!" });
+      } else {
+        res.status(401).json({ message: "Post delete not Authorized !" });
+      }
     }
+  )
+  .catch((error) => {
+    res.status(500).json({ message: "Deleting a post failed !" });
   });
 });
 
