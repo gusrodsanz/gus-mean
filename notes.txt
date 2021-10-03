@@ -130,3 +130,48 @@ npm install --save jsonwebtoken
 
 
 
+144
+AWS
+https://eu-west-3.console.aws.amazon.com/elasticbeanstalk/home?region=eu-west-3#/welcome
+
+create new app button
+gus-node-angular
+WEB server
+nodejs
+
+upload >
+wait
+
+other options  button
+
+select free tier
+
+select software  edit >
+
+add NODE VARIABLES (nodemon.json)
+
+create app,  wait
+ERROR >  BCRYPT ...
+
+solution :
+npm i --save bcryptjs
+
+recompile backend
+
+see that root > package.json   was updated
+
+copy that    "bcryptjs": "^2.4.3",
+and replace
+to backend package.json
+
+update the code
+
+contorllesr  user.js
+>
+const bcrypt = require("bcryptjs");
+
+
+
+
+
+
