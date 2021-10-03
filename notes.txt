@@ -171,7 +171,8 @@ contorllesr  user.js
 const bcrypt = require("bcryptjs");
 
 
-
+Procfile should be in backend  and have this :
+web: node server.js
 
 
 
