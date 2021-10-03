@@ -9,7 +9,8 @@ const userRoutes = require("./routes/user");
 const app = express();
 
 mongoose.connect(
-  "mongodb+srv://gus:changeme@cluster0.itilw.mongodb.net/gus-node-angular", {
+  "mongodb+srv://gus:" + process.env.MONGO_ATLAS_PW + "@cluster0.itilw.mongodb.net/gus-node-angular"
+  , {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
